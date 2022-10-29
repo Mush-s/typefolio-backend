@@ -1,0 +1,114 @@
+import { Post, Prisma } from "@prisma/client";
+import { Context } from "../index";
+
+interface PostCreateArgs {
+  length: number;
+  title: string;
+  content: string;
+  date: string;
+}
+
+interface PostUpArgs {
+  title?: string;
+  content?: string;
+  date?: string;
+  lengthId?: number;
+}
+interface PostPayloadType {
+  userErrors: {
+    message: string;
+  }[];
+  post: Post | Prisma.Prisma__PostClient<Post, never> | null;
+}
+
+interface PostPayloadUpType {
+  userErrors: {
+    message: string;
+  }[];
+  post: PostUpArgs | Prisma.Prisma__PostClient<Post, never> | null;
+}
+
+export const Mutation = {
+  postCreate: async (
+    _: any,
+    { length, title, content, date }: PostCreateArgs,
+    { prisma }: Context
+  ): Promise<PostPayloadType> => {
+    if (!title || !length || !date) {
+      return {
+        userErrors: [{ message: "you must provide" }],
+        post: null,
+      };
+    }
+    const post = await prisma.post.create({
+      data: {
+        length,
+        title,
+        content,
+        date,
+      },
+    });
+    return {
+      userErrors: [],
+      post,
+    };
+  },
+  postUpdate: async (
+    _: any,
+    { lengthId, title, content, date }: PostUpArgs,
+    { prisma }: Context
+  ): Promise<PostPayloadUpType> => {
+    const existingPost = await prisma.post.findUnique({
+      where: { length: lengthId },
+    });
+    if (!existingPost) {
+      return {
+        userErrors: [{ message: "need id" }],
+        post: null,
+      };
+    }
+    if (!content && !title) {
+      return {
+        userErrors: [{ message: "need title or content" }],
+        post: null,
+      };
+    }
+
+    let payloadToUpdate = {
+      title,
+      content,
+    };
+
+    if (!title) delete payloadToUpdate.title;
+    if (!content) delete payloadToUpdate.content;
+    return {
+      userErrors: [],
+      post: prisma.post.update({
+        data: {
+          ...payloadToUpdate,
+        },
+        where: {
+          length: lengthId,
+        },
+      }),
+    };
+  },
+  postDelete: async (
+    _: any,
+    { lengthId }: { lengthId: number },
+    { prisma }: Context
+  ): Promise<PostPayloadType> => {
+    if (!lengthId) {
+      return {
+        userErrors: [{ message: "no Id" }],
+        post: null,
+      };
+    }
+    return {
+      userErrors: [],
+      post: prisma.post.delete({
+        where: { length: lengthId },
+      }),
+    };
+  },
+};
