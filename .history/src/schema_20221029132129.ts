@@ -3,7 +3,6 @@ import { gql } from "apollo-server-express";
 export const typeDefs = gql`
   type Query {
     posts: [Post!]!
-    friends: [Friend!]!
   }
 
   type Mutation {
@@ -15,7 +14,6 @@ export const typeDefs = gql`
     ): PostPayloadType!
     postUpdate(lengthId: Int!, title: String, content: String): PostPayloadType!
     postDelete(lengthId: Int!): PostPayloadType!
-    friendCreate(name: String!, relation: String!): FriendPayloadType!
   }
 
   type UserError {
@@ -27,20 +25,10 @@ export const typeDefs = gql`
     post: Post
   }
 
-  type FriendPayloadType {
-    userErrors: [UserError!]!
-    friend: Friend
-  }
   type Post {
     length: Int!
     title: String!
     content: String!
     date: String!
-  }
-
-  type Friend {
-    id: Int!
-    name: String!
-    relation: String!
   }
 `;

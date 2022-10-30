@@ -11,11 +11,11 @@ export const Query = {
     });
     return posts;
   },
-  friends: async (_: any, __: any, { prisma }: Context) => {
+  friends: async (_: any, args: any, { prisma }: Context) => {
     const friends = await prisma.friend.findMany({
       orderBy: [
         {
-          name: "desc",
+          created_at: "desc",
         },
       ],
     });

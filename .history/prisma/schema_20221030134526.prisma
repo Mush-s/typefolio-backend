@@ -17,8 +17,8 @@ model Post {
   date    String
 }
 
-model Friend {
-  id         Int    @id @default(autoincrement())
-  name       String
-  relation   String
+model Friend{
+  id Int @id @default(autoincrement())
+  name String
+  relation String
 }

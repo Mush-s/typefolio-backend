@@ -1,4 +1,4 @@
-import { Friend, Post, Prisma } from "@prisma/client";
+import { Post, Prisma } from "@prisma/client";
 import { Context } from "../index";
 
 interface PostCreateArgs {
@@ -6,10 +6,6 @@ interface PostCreateArgs {
   title: string;
   content: string;
   date: string;
-}
-interface FriendCreateArgs {
-  name: string;
-  relation: string;
 }
 
 interface PostUpArgs {
@@ -23,13 +19,6 @@ interface PostPayloadType {
     message: string;
   }[];
   post: Post | Prisma.Prisma__PostClient<Post, never> | null;
-}
-
-interface FriendPayloadType {
-  userErrors: {
-    message: string;
-  }[];
-  friend: Friend | null;
 }
 
 interface PostPayloadUpType {
@@ -120,28 +109,6 @@ export const Mutation = {
       post: prisma.post.delete({
         where: { length: lengthId },
       }),
-    };
-  },
-  friendCreate: async (
-    _: any,
-    { name, relation }: FriendCreateArgs,
-    { prisma }: Context
-  ): Promise<FriendPayloadType> => {
-    if (!name && !relation) {
-      return {
-        userErrors: [{ message: "you must provide" }],
-        friend: null,
-      };
-    }
-    const friend = await prisma.friend.create({
-      data: {
-        name,
-        relation,
-      },
-    });
-    return {
-      userErrors: [],
-      friend,
     };
   },
 };

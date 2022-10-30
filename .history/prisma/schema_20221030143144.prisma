@@ -21,4 +21,5 @@ model Friend {
   id         Int    @id @default(autoincrement())
   name       String
   relation   String
+  created_at String
 }

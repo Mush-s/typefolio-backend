@@ -15,7 +15,7 @@ export const typeDefs = gql`
     ): PostPayloadType!
     postUpdate(lengthId: Int!, title: String, content: String): PostPayloadType!
     postDelete(lengthId: Int!): PostPayloadType!
-    friendCreate(name: String!, relation: String!): FriendPayloadType!
+    friendCreate(name:String! relation:String!)
   }
 
   type UserError {

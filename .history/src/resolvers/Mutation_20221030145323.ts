@@ -1,4 +1,4 @@
-import { Friend, Post, Prisma } from "@prisma/client";
+import { Post, Prisma } from "@prisma/client";
 import { Context } from "../index";
 
 interface PostCreateArgs {
@@ -24,7 +24,6 @@ interface PostPayloadType {
   }[];
   post: Post | Prisma.Prisma__PostClient<Post, never> | null;
 }
-
 interface FriendPayloadType {
   userErrors: {
     message: string;
@@ -126,22 +125,5 @@ export const Mutation = {
     _: any,
     { name, relation }: FriendCreateArgs,
     { prisma }: Context
-  ): Promise<FriendPayloadType> => {
-    if (!name && !relation) {
-      return {
-        userErrors: [{ message: "you must provide" }],
-        friend: null,
-      };
-    }
-    const friend = await prisma.friend.create({
-      data: {
-        name,
-        relation,
-      },
-    });
-    return {
-      userErrors: [],
-      friend,
-    };
-  },
+  ): Promise<FriendPayloadType> => {},
 };

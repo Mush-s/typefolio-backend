@@ -15,7 +15,7 @@ export const Query = {
     const friends = await prisma.friend.findMany({
       orderBy: [
         {
-          name: "desc",
+          created_at: "desc",
         },
       ],
     });
