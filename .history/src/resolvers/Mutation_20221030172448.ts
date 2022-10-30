@@ -158,7 +158,7 @@ export const Mutation = {
     return {
       userErrors: [],
       friend: prisma.friend.delete({
-        where: { id: id },
+        where: { id },
       }),
     };
   },

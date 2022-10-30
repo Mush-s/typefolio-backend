@@ -29,7 +29,7 @@ interface FriendPayloadType {
   userErrors: {
     message: string;
   }[];
-  friend: Friend | Prisma.Prisma__FriendClient<Friend, never> | null;
+  friend: Friend | null;
 }
 
 interface PostPayloadUpType {
@@ -149,17 +149,15 @@ export const Mutation = {
     { id }: { id: number },
     { prisma }: Context
   ): Promise<FriendPayloadType> => {
-    if (!id) {
-      return {
-        userErrors: [{ message: "no id" }],
-        friend: null,
-      };
-    }
+    const friend = await prisma.friend.delete({
+      friend: {
+        where: id,
+      },
+    });
+
     return {
-      userErrors: [],
-      friend: prisma.friend.delete({
-        where: { id: id },
-      }),
+      userErrors: [{ message: "no id" }],
+      friend: null,
     };
   },
 };
