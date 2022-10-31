@@ -2,6 +2,7 @@ import { Friend, Post, Prisma } from "@prisma/client";
 import { Context } from "../index";
 
 interface PostCreateArgs {
+  length: number;
   title: string;
   content: string;
   date: string;
@@ -17,6 +18,7 @@ interface PostUpArgs {
   content?: string;
   date?: string;
   lengthId?: number;
+  relation?: string;
   color?: string;
   done?: boolean;
 }
@@ -44,10 +46,10 @@ interface PostPayloadUpType {
 export const Mutation = {
   postCreate: async (
     _: any,
-    {  title, content, date, color }: PostCreateArgs,
+    { length, title, content, date, relation, color }: PostCreateArgs,
     { prisma }: Context
   ): Promise<PostPayloadType> => {
-    if (!title || !date || !color) {
+    if (!title || !length || !date || !relation || !color) {
       return {
         userErrors: [{ message: "you must provide" }],
         post: null,
@@ -55,7 +57,9 @@ export const Mutation = {
     }
     const post = await prisma.post.create({
       data: {
+        length,
         title,
+        relation,
         content,
         date,
         color,
@@ -68,7 +72,7 @@ export const Mutation = {
   },
   postUpdate: async (
     _: any,
-    { lengthId, title, content, color }: PostUpArgs,
+    { lengthId, title, content, relation }: PostUpArgs,
     { prisma }: Context
   ): Promise<PostPayloadUpType> => {
     const existingPost = await prisma.post.findUnique({
@@ -90,12 +94,12 @@ export const Mutation = {
     let payloadToUpdate = {
       title,
       content,
-      color,
+      relation,
     };
 
     if (!title) delete payloadToUpdate.title;
     if (!content) delete payloadToUpdate.content;
-    if (!color) delete payloadToUpdate.color;
+    if (!relation) delete payloadToUpdate.relation;
     return {
       userErrors: [],
       post: prisma.post.update({
@@ -128,10 +132,10 @@ export const Mutation = {
   },
   friendCreate: async (
     _: any,
-    { name, color }: FriendCreateArgs,
+    { name, relation }: FriendCreateArgs,
     { prisma }: Context
   ): Promise<FriendPayloadType> => {
-    if (!name && !color) {
+    if (!name && !relation) {
       return {
         userErrors: [{ message: "you must provide" }],
         friend: null,
@@ -140,7 +144,7 @@ export const Mutation = {
     const friend = await prisma.friend.create({
       data: {
         name,
-        color,
+        relation,
       },
     });
     return {

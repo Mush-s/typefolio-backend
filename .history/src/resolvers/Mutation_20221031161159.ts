@@ -2,6 +2,7 @@ import { Friend, Post, Prisma } from "@prisma/client";
 import { Context } from "../index";
 
 interface PostCreateArgs {
+  length: number;
   title: string;
   content: string;
   date: string;
@@ -44,10 +45,10 @@ interface PostPayloadUpType {
 export const Mutation = {
   postCreate: async (
     _: any,
-    {  title, content, date, color }: PostCreateArgs,
+    { length, title, content, date,  color }: PostCreateArgs,
     { prisma }: Context
   ): Promise<PostPayloadType> => {
-    if (!title || !date || !color) {
+    if (!title || !length || !date || !color) {
       return {
         userErrors: [{ message: "you must provide" }],
         post: null,
@@ -55,6 +56,7 @@ export const Mutation = {
     }
     const post = await prisma.post.create({
       data: {
+        length,
         title,
         content,
         date,
@@ -128,10 +130,10 @@ export const Mutation = {
   },
   friendCreate: async (
     _: any,
-    { name, color }: FriendCreateArgs,
+    { name, relation }: FriendCreateArgs,
     { prisma }: Context
   ): Promise<FriendPayloadType> => {
-    if (!name && !color) {
+    if (!name && !relation) {
       return {
         userErrors: [{ message: "you must provide" }],
         friend: null,
@@ -140,7 +142,7 @@ export const Mutation = {
     const friend = await prisma.friend.create({
       data: {
         name,
-        color,
+        relation,
       },
     });
     return {

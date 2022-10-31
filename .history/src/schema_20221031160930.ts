@@ -8,6 +8,7 @@ export const typeDefs = gql`
 
   type Mutation {
     postCreate(
+      length: Int!
       title: String!
       content: String!
       date: String!

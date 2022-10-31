@@ -2,6 +2,7 @@ import { Friend, Post, Prisma } from "@prisma/client";
 import { Context } from "../index";
 
 interface PostCreateArgs {
+  length: number;
   title: string;
   content: string;
   date: string;
