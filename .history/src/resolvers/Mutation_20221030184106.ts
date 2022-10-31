@@ -6,7 +6,7 @@ interface PostCreateArgs {
   title: string;
   content: string;
   date: string;
-  relation: string;
+  relation:String
 }
 interface FriendCreateArgs {
   name: string;
@@ -18,7 +18,6 @@ interface PostUpArgs {
   content?: string;
   date?: string;
   lengthId?: number;
-  relation?: string;
 }
 interface PostPayloadType {
   userErrors: {
@@ -44,10 +43,10 @@ interface PostPayloadUpType {
 export const Mutation = {
   postCreate: async (
     _: any,
-    { length, title, content, date, relation }: PostCreateArgs,
+    { length, title, content, date }: PostCreateArgs,
     { prisma }: Context
   ): Promise<PostPayloadType> => {
-    if (!title || !length || !date || !relation) {
+    if (!title || !length || !date) {
       return {
         userErrors: [{ message: "you must provide" }],
         post: null,
@@ -57,7 +56,6 @@ export const Mutation = {
       data: {
         length,
         title,
-        relation,
         content,
         date,
       },
@@ -69,7 +67,7 @@ export const Mutation = {
   },
   postUpdate: async (
     _: any,
-    { lengthId, title, content, relation }: PostUpArgs,
+    { lengthId, title, content, date }: PostUpArgs,
     { prisma }: Context
   ): Promise<PostPayloadUpType> => {
     const existingPost = await prisma.post.findUnique({
@@ -91,12 +89,10 @@ export const Mutation = {
     let payloadToUpdate = {
       title,
       content,
-      relation,
     };
 
     if (!title) delete payloadToUpdate.title;
     if (!content) delete payloadToUpdate.content;
-    if (!relation) delete payloadToUpdate.relation;
     return {
       userErrors: [],
       post: prisma.post.update({

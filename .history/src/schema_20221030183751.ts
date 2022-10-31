@@ -8,18 +8,12 @@ export const typeDefs = gql`
 
   type Mutation {
     postCreate(
-      length: Int!
       title: String!
       content: String!
       date: String!
-      relation: String!
+      length: Int!
     ): PostPayloadType!
-    postUpdate(
-      lengthId: Int!
-      title: String
-      content: String
-      relation: String
-    ): PostPayloadType!
+    postUpdate(lengthId: Int!, title: String, content: String): PostPayloadType!
     postDelete(lengthId: Int!): PostPayloadType!
     friendCreate(name: String!, relation: String!): FriendPayloadType!
     friendDelete(id: Int!): FriendPayloadType!
@@ -43,7 +37,7 @@ export const typeDefs = gql`
     title: String!
     content: String!
     date: String!
-    relation: String!
+    relation:String!
   }
 
   type Friend {

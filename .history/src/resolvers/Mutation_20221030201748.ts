@@ -69,7 +69,7 @@ export const Mutation = {
   },
   postUpdate: async (
     _: any,
-    { lengthId, title, content, relation }: PostUpArgs,
+    { lengthId, title, content, date, relation }: PostUpArgs,
     { prisma }: Context
   ): Promise<PostPayloadUpType> => {
     const existingPost = await prisma.post.findUnique({

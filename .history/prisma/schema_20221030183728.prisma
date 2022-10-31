@@ -11,15 +11,15 @@ datasource db {
 }
 
 model Post {
-  length   Int    @id
-  title    String
-  content  String
-  date     String
+  length  Int    @id
+  title   String
+  content String
+  date    String
   relation String
 }
 
 model Friend {
-  id       Int    @id @default(autoincrement())
-  name     String
-  relation String
+  id         Int    @id @default(autoincrement())
+  name       String
+  relation   String
 }

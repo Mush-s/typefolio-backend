@@ -57,9 +57,9 @@ export const Mutation = {
       data: {
         length,
         title,
-        relation,
         content,
         date,
+        relation,
       },
     });
     return {
@@ -69,7 +69,7 @@ export const Mutation = {
   },
   postUpdate: async (
     _: any,
-    { lengthId, title, content, relation }: PostUpArgs,
+    { lengthId, title, content, date }: PostUpArgs,
     { prisma }: Context
   ): Promise<PostPayloadUpType> => {
     const existingPost = await prisma.post.findUnique({
@@ -91,12 +91,10 @@ export const Mutation = {
     let payloadToUpdate = {
       title,
       content,
-      relation,
     };
 
     if (!title) delete payloadToUpdate.title;
     if (!content) delete payloadToUpdate.content;
-    if (!relation) delete payloadToUpdate.relation;
     return {
       userErrors: [],
       post: prisma.post.update({
