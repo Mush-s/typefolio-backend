@@ -46,8 +46,6 @@ export const typeDefs = gql`
     content: String!
     date: String!
     relation: String!
-    color: String!
-    done: Boolean!
   }
 
   type Friend {

@@ -11,17 +11,17 @@ datasource db {
 }
 
 model Post {
-  length   Int     @id
+  length   Int    @id
   title    String
   content  String
   date     String
   relation String
   color    String
-  done     Boolean @default(false)
 }
 
 model Friend {
   id       Int    @id @default(autoincrement())
   name     String
   relation String
+  color    String
 }

@@ -14,13 +14,14 @@ export const typeDefs = gql`
       date: String!
       relation: String!
       color: String!
+      done: Boolean!
     ): PostPayloadType!
     postUpdate(
       lengthId: Int!
       title: String
       content: String
       relation: String
-      done: Boolean
+      done: Boolean!
     ): PostPayloadType!
     postDelete(lengthId: Int!): PostPayloadType!
     friendCreate(name: String!, relation: String!): FriendPayloadType!
@@ -46,8 +47,6 @@ export const typeDefs = gql`
     content: String!
     date: String!
     relation: String!
-    color: String!
-    done: Boolean!
   }
 
   type Friend {
