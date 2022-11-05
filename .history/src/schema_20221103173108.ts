@@ -4,7 +4,7 @@ export const typeDefs = gql`
   type Query {
     posts: [Post!]!
     friends: [Friend!]!
-    friend(color: String!): [Friend!]!
+    friend:(color:String!):[Post!]!
   }
 
   type Mutation {
@@ -52,6 +52,6 @@ export const typeDefs = gql`
     id: Int!
     name: String!
     color: String!
-    posts: [Post!]!
+    posts:[Post!]!
   }
 `;

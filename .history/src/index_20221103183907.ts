@@ -1,6 +1,6 @@
 import { ApolloServer } from "apollo-server";
 import { typeDefs } from "./schema";
-import { Query, Mutation} from "./resolvers";
+import { Query, Mutation, Friend } from "./resolvers";
 import { PrismaClient, Prisma } from "@prisma/client";
 
 const prisma = new PrismaClient();

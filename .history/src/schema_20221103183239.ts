@@ -4,7 +4,7 @@ export const typeDefs = gql`
   type Query {
     posts: [Post!]!
     friends: [Friend!]!
-    friend(color: String!): [Friend!]!
+    # friends(color: String!): [Friend!]!
   }
 
   type Mutation {

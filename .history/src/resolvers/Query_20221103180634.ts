@@ -25,7 +25,7 @@ export const Query = {
 
   friend: async (_: any, { color }: { color: string }, { prisma }: Context) => {
     console.log(color);
-    const friend = await prisma.friend.findMany({
+    const friend = await prisma.friend.findMnay({
       where: { color },
     });
     return friend;

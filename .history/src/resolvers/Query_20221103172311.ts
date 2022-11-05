@@ -22,12 +22,10 @@ export const Query = {
     });
     return friends;
   },
+};
 
-  friend: async (_: any, { color }: { color: string }, { prisma }: Context) => {
-    console.log(color);
-    const friend = await prisma.friend.findMany({
-      where: { color },
-    });
-    return friend;
+export const Friend = {
+  posts: (parent: any, args: any, context: any) => {
+    console.log(parent);
   },
 };

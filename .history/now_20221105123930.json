@@ -1,0 +1,6 @@
+{
+    "name": "graphql-server",
+    "env": {
+      "NODE_ENV": "production"
+    }
+  }

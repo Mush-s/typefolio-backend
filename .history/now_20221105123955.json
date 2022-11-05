@@ -1,0 +1,7 @@
+{
+    "name": "graphql-server",
+    "alias": "graphql-server-foobar.now.sh",
+    "env": {
+      "NODE_ENV": "production"
+    }
+  }
