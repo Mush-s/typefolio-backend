@@ -80,6 +80,12 @@ export const Mutation = {
         post: null,
       };
     }
+    if (!content || !title || !color || !done) {
+      return {
+        userErrors: [{ message: "need title or content" }],
+        post: null,
+      };
+    }
 
     let payloadToUpdate = {
       title,

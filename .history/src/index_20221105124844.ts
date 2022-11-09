@@ -18,6 +18,7 @@ const server = new ApolloServer({
   context: {
     prisma,
   },
+  introspection: true,
 });
 
 server.listen().then(({ url }) => {

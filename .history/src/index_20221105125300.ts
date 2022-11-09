@@ -13,12 +13,15 @@ export interface Context {
   >;
 }
 const server = new ApolloServer({
+  introspection: true,
+  playground: true,
   typeDefs,
   resolvers: { Query, Mutation },
   context: {
     prisma,
   },
 });
+
 
 server.listen().then(({ url }) => {
   console.log(`server ready on ${url}`);

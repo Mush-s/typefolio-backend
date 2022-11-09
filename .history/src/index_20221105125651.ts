@@ -13,6 +13,7 @@ export interface Context {
   >;
 }
 const server = new ApolloServer({
+  introspection: true,
   typeDefs,
   resolvers: { Query, Mutation },
   context: {
